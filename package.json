@@ -10,7 +10,10 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@types/three": "^0.140.0",
     "@vueuse/core": "^8.4.2",
+    "lil-gui": "^0.16.1",
+    "three": "^0.140.2",
     "vue": "^3.2.33",
     "vue-router": "^4.0.15"
   },
