@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
-import Stats from './stats.js'
+import Stats from './stats'
 
 const gui = new GUI()
 
