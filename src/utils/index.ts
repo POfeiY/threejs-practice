@@ -172,7 +172,7 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
-
+  renderer.setAnimationLoop(render)
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 0.85
@@ -292,7 +292,7 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
     scene.add(carModel)
   }, (progress) => {
     if (progress.lengthComputable && progress.loaded / progress.total === 1)
-      renderer.setAnimationLoop(render)
+      console.log('load complete')
   })
 
   function onWindowResize() {
