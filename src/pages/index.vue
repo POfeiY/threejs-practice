@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PorcheRender, sunSolarSystem } from '~/utils'
+import { PorcheRender } from '~/utils'
 
 const canvas = $ref()
 

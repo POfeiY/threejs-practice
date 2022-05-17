@@ -21,5 +21,5 @@
       "~/*": ["src/*"]
     }
   },
-  "exclude": ["dist", "node_modules", "draco", "glTF", "src/utils/stats.module.js"]
+  "exclude": ["dist", "node_modules", "draco", "glTF"]
 }
