@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import Stats from './stats.module.js'
 
 const gui = new GUI()
 
@@ -171,13 +172,15 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
-
+  renderer.setAnimationLoop(render)
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 0.85
 
-  // stats = new Stats()
+  window.addEventListener('resize', onWindowResize)
 
+  const stats = new Stats()
+  document.querySelector('#app')?.appendChild(stats.dom)
   // create camera
   const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100)
   camera.position.set(4.25, 1.41, -4.5)
@@ -289,19 +292,18 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
     scene.add(carModel)
   })
 
-  const onWindowResize = () => {
+  function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
   }
-  window.addEventListener('resize', onWindowResize)
-  const render = () => {
+  function render() {
     controls.update()
     const time = -performance.now() * 0.001
     for (let index = 0; index < wheels.length; index++)
       wheels[index].rotation.x = time * Math.PI * 2
     grid.position.z = -(time) % 1
     renderer.render(scene, camera)
+    stats.update()
   }
-  renderer.setAnimationLoop(render)
 }
