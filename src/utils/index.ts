@@ -286,7 +286,7 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
         transparent: true,
       }),
     )
-    mesh.rotation.x = Math.PI / 2
+    mesh.rotation.x = -Math.PI / 2
     mesh.renderOrder = 2
     carModel.add(mesh)
     scene.add(carModel)
