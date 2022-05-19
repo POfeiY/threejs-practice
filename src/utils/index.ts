@@ -183,7 +183,7 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
   document.querySelector('#app')?.appendChild(stats.dom)
   // create camera
   const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100)
-  camera.position.set(4.25, 1.41, -4.5)
+  camera.position.set(4.25, 1.4, -4.5)
 
   const controls = new OrbitControls(camera, canvas)
   controls.enableDamping = true
@@ -219,7 +219,7 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
       this.object[this.key] = new THREE.Color(hexString)
     }
   }
-  const bodyMaterialColor = new THREE.Color(0xFFFFFF)
+  const bodyMaterialColor = new THREE.Color('red')
   const detailMaterialColor = new THREE.Color(0xFFFFFF)
   const glassMaterialColor = new THREE.Color(0xFFFFFF)
 
@@ -232,7 +232,7 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
     clearcoatRoughness: 0.03,
     sheen: 0.5, // 光泽
   })
-  const detailMaterial = new THREE.MeshPhysicalMaterial({
+  const detailMaterial = new THREE.MeshStandardMaterial({
     color: detailMaterialColor,
     metalness: 1.0,
     roughness: 0.5,
