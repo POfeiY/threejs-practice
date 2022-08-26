@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { createStormTrooper } from '~/utils/stormtrooper.js'
+import { createSpace } from '~/utils/space.js'
 const canvas = $ref()
 onMounted(() => {
-  createStormTrooper(canvas)
+  createSpace(canvas)
 })
 </script>
 

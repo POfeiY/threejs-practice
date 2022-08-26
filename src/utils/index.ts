@@ -7,7 +7,9 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import Stats from './stats'
 
 const gui = new GUI()
-
+export const hideGUI = () => gui.hide()
+export const showGUI = () => gui.show()
+let isGUIInit = false
 export const sunSolarSystem = (canvas: HTMLCanvasElement) => {
   // create renderer
   const renderer = new THREE.WebGLRenderer({ canvas })
@@ -244,9 +246,12 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
     transmission: 1.0, // 穿透性
   })
 
-  gui.addColor(new ColorGUIHelper(bodyMaterial, 'color'), 'value').name('bodyMaterialColor')
-  gui.addColor(new ColorGUIHelper(detailMaterial, 'color'), 'value').name('detailMaterialColor')
-  gui.addColor(new ColorGUIHelper(glassMaterial, 'color'), 'value').name('glassMaterialColor')
+  if (!isGUIInit) {
+    isGUIInit = true
+    gui.addColor(new ColorGUIHelper(bodyMaterial, 'color'), 'value').name('bodyMaterialColor')
+    gui.addColor(new ColorGUIHelper(detailMaterial, 'color'), 'value').name('detailMaterialColor')
+    gui.addColor(new ColorGUIHelper(glassMaterial, 'color'), 'value').name('glassMaterialColor')
+  }
 
   // car glTF
   const shadow = new THREE.TextureLoader().load(new URL('../glTF/ferrari_ao.png', import.meta.url).href)
@@ -310,3 +315,5 @@ export const PorcheRender = (canvas: HTMLCanvasElement) => {
     stats.update()
   }
 }
+
+export { gui }

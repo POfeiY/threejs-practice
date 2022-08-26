@@ -1,21 +1,18 @@
 <script setup lang="ts">
-import { isDark, toggleDark } from '~/composables'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const goToCamera = () => router.push('./camera')
+const goToSpace = () => router.push('./space')
+const goToFerrari = () => router.push('./ferrari')
+const goToStormTrooper = () => router.push('./')
 </script>
 
 <template>
-  <nav text-xl mt-6 inline-flex gap-2>
-    <button class="icon-btn !outline-none" @click="toggleDark()">
-      <div v-if="isDark" i-carbon-moon />
-      <div v-else i-carbon-sun />
-    </button>
-
-    <a
-      class="icon-btn"
-      i-carbon-logo-github
-      rel="noreferrer"
-      href="https://github.com/antfu/vitesse-lite"
-      target="_blank"
-      title="GitHub"
-    />
+  <nav class="page-btn" text-xl mt-6 inline-flex gap-2 justify-between px-2>
+    <div title="Camera" class="icon-btn" i-carbon:face-dizzy-filled @click.stop="goToCamera" />
+    <div title="Space" class="icon-btn" i-carbon:face-mask @click.stop="goToSpace" />
+    <div title="Ferrari" class="icon-btn" i-carbon:face-pending-filled @click.stop="goToFerrari" />
+    <div title="StormTrooper" class="icon-btn" i-carbon:face-cool @click.stop="goToStormTrooper" />
   </nav>
 </template>
