@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader'
 import Stats from './stats'
 // import dae from '~/stormTrooper/stormtrooper.dae'
+console.log(new URL('../stormTrooper/stormtrooper_D.jpg', import.meta.url).href)
 export const createStormTrooper = (canvas) => {
   let mixer
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas })
