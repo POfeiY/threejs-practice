@@ -3,7 +3,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader'
 import Stats from './stats'
 // import dae from '~/stormTrooper/stormtrooper.dae'
-console.log(new URL('../stormTrooper/stormtrooper_D.jpg', import.meta.url).href)
 export const createStormTrooper = (canvas) => {
   let mixer
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas })
@@ -31,6 +30,8 @@ export const createStormTrooper = (canvas) => {
   const clock = new THREE.Clock()
 
   const loader = new ColladaLoader()
+  const image = new Image()
+  image.scr = new URL('../stormTrooper/stormtrooper_D.jpg', import.meta.url).href
   loader.load(new URL('../stormTrooper/stormtrooper.dae', import.meta.url).href, (collada) => {
     const avatar = collada.scene
     const animations = avatar.animations
