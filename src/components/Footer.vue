@@ -6,6 +6,7 @@ const goToCamera = () => router.push('./camera')
 const goToSpace = () => router.push('./space')
 const goToFerrari = () => router.push('./ferrari')
 const goToStormTrooper = () => router.push('./')
+const goToControlsPointer = () => router.push('./controls')
 </script>
 
 <template>
@@ -14,5 +15,6 @@ const goToStormTrooper = () => router.push('./')
     <div title="Space" class="icon-btn" i-carbon:face-mask @click.stop="goToSpace" />
     <div title="Ferrari" class="icon-btn" i-carbon:face-pending-filled @click.stop="goToFerrari" />
     <div title="StormTrooper" class="icon-btn" i-carbon:face-cool @click.stop="goToStormTrooper" />
+    <div title="ControlsPointer" class="icon-btn" i-carbon:face-cool @click.stop="goToControlsPointer" />
   </nav>
 </template>

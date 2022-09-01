@@ -7,3 +7,4 @@ declare module '*.vue' {
 declare module '~/utils/camera.js'
 declare module '~/utils/space.js'
 declare module '~/utils/stormtrooper.js'
+declare module '~/utils/controlsPointer.js'
