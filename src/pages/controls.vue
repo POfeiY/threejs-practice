@@ -9,10 +9,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="container" w-full h-full position-relative>
+  <div id="c" ref="container" w-full h-full position-relative>
     <div ref="blockLayer" class="block-layer">
       <div ref="helperLayer" class="helper-layer">
-        <p font-36>
+        <p class="title">
           Click to play
         </p>
         <p>

@@ -164,18 +164,18 @@ export const createPointerLockControls = (blockLayer, helperLayer, container) =>
   renderer.setSize(window.innerWidth, window.innerHeight)
   container.appendChild(renderer.domElement)
 
-  const onWindowResize = () => {
+  window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
-  }
-
-  window.addEventListener('resize', onWindowResize)
+  })
 
   const animate = () => {
     requestAnimationFrame(animate)
     const time = performance.now()
     if (controls.isLocked === true) {
+      // TODO: controls.getObject().position === {x:NaN, y:NaN, y:NaN}
+      // console.log(controls.getObject())
       raycaster.ray.origin.copy(controls.getObject().position)
       raycaster.ray.origin.y -= 10
 
@@ -197,13 +197,13 @@ export const createPointerLockControls = (blockLayer, helperLayer, container) =>
       if (moveLeft || moveRight)
         velocity.x -= direction.x * 400 * delta
 
-      if (onObject) {
+      if (onObject === true) {
         velocity.y = Math.max(0, velocity.y)
         canJump = true
       }
 
       controls.moveRight(-velocity.x * delta)
-      controls.moveForward(-velocity * delta)
+      controls.moveForward(-velocity.z * delta)
 
       controls.getObject().position.y += (velocity.y * delta) // update new behavior
 
