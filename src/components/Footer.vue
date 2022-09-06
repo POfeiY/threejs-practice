@@ -15,6 +15,6 @@ const goToControlsPointer = () => router.push('./controls')
     <div title="Space" class="icon-btn" i-carbon:face-mask @click.stop="goToSpace" />
     <div title="Ferrari" class="icon-btn" i-carbon:face-pending-filled @click.stop="goToFerrari" />
     <div title="StormTrooper" class="icon-btn" i-carbon:face-cool @click.stop="goToStormTrooper" />
-    <div title="ControlsPointer" class="icon-btn" i-carbon:face-cool @click.stop="goToControlsPointer" />
+    <div title="ControlsPointer" class="icon-btn" i-carbon:carbon @click.stop="goToControlsPointer" />
   </nav>
 </template>
