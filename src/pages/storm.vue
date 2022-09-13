@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { createHelloCib } from '~/utils/helloCib.js'
+import { createStormTrooper } from '~/utils/stormtrooper.js'
 const canvas = $ref()
 onMounted(() => {
-  createHelloCib(canvas)
+  createStormTrooper(canvas)
 })
 </script>
 
 <template>
   <canvas ref="canvas" w-full h-full />
 </template>
+

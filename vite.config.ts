@@ -6,8 +6,9 @@ import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import glslLoader from 'rollup-plugin-glsl-loader'
 import Unocss from 'unocss/vite'
-
+import presetIcons from '@unocss/preset-icons'
 export default defineConfig({
   resolve: {
     alias: {
@@ -40,7 +41,14 @@ export default defineConfig({
 
     // https://github.com/antfu/unocss
     // see unocss.config.ts for config
-    Unocss(),
+    Unocss({
+      presets: [
+        presetIcons(),
+      ],
+    }),
+
+    // glsl loader
+    glslLoader(),
   ],
 
   // https://github.com/vitest-dev/vitest

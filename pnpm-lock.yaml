@@ -13,6 +13,7 @@ specifiers:
   jsdom: ^19.0.0
   lil-gui: ^0.16.1
   pnpm: ^7.0.1
+  rollup-plugin-glsl-loader: ^1.0.13
   three: ^0.140.2
   typescript: ^4.6.4
   unocss: ^0.33.2
@@ -28,6 +29,7 @@ specifiers:
 dependencies:
   '@vueuse/core': 8.4.2_vue@3.2.33
   lil-gui: 0.16.1
+  rollup-plugin-glsl-loader: 1.0.13
   three: 0.140.2
   vue: 3.2.33
   vue-router: 4.0.15_vue@3.2.33
@@ -3193,6 +3195,10 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
+
+  /rollup-plugin-glsl-loader/1.0.13:
+    resolution: {integrity: sha512-mvkSd676gSBXiA7atSAr7N+E7zuAguu4x8YCK0VgqzT9u8pC6Znp/zeujXVHzrKgTDYXduqV0AWFS/2VYrsvTA==}
+    dev: false
 
   /rollup/2.61.0:
     resolution: {integrity: sha512-teQ+T1mUYbyvGyUavCodiyA9hD4DxwYZJwr/qehZGhs1Z49vsmzelMVYMxGU4ZhGRKxYPupHuz5yzm/wj7VpWA==}
