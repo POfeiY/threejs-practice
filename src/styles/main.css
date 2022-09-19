@@ -47,3 +47,13 @@ html.dark {
   margin-bottom: 10px;
   font-size: 24px;
 }
+
+.dg.ac .c input[type=text] {
+  padding: 0 !important;;
+  height: 19px;
+}
+
+.dg.ac .cr .c input[type=text] {
+  padding: 0 !important;;
+  height: 20px;
+}

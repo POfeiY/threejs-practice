@@ -3,12 +3,39 @@
 ## [WebGL基础](https://webglfundamentals.org/webgl/lessons/zh_cn/webgl-fundamentals.html)
 - WebGL简介
 
-WebGL经常被当成3D API，人们总想“我可以使用WebGL和一些神奇的东西做出炫酷的3D作品”。 事实上WebGL仅仅是一个光栅化引擎，它可以根据你的代码绘制出点，线和三角形。
-WebGL在电脑的GPU中运行。因此你需要使用能够在GPU上运行的代码。 这样的代码需要提供成对的方法。每对方法中一个叫顶点着色器， 另一个叫片断着色器，并且使用一种和C或C++类似的强类型的语言 GLSL。
+WebGL经常被当成3D API，可以使用WebGL和一些神奇的东西做出炫酷的3D作品。 事实上WebGL仅仅是一个光栅化引擎，它可以根据你的代码绘制出点，线和三角形。
+
+WebGL在电脑的GPU中运行。因此你需要使用能够在GPU上运行的代码。 这样的代码需要提供成对的方法。每对方法中一个叫顶点着色器， 另一个叫片断着色器，并且使用一种和C或C++类似的强类型的语言 GLSL。 (GL着色语言)。 每一对组合起来称作一个 program（着色程序）。
+
+顶点着色器的作用是计算顶点的位置。根据计算出的一系列顶点位置，WebGL可以对点， 线和三角形在内的一些图元进行光栅化处理。当对这些图元进行光栅化处理时需要使用片断着色器方法。 片断着色器的作用是计算出当前绘制图元中每个像素的颜色值。
+
+每对方法中一个叫顶点着色器，顶点着色器的作用是计算顶点的位置。根据计算出的一系列顶点位置，WebGL可以对点， 线和三角形在内的一些图元进行光栅化处理。
+
+另一个叫片断着色器，片断着色器的作用是计算出当前绘制图元中每个像素的颜色值。当对这些图元进行光栅化处理时需要使用片断着色器方法。
 
 几乎整个WebGL API都是关于如何设置这些成对方法的状态值以及运行它们。 对于想要绘制的每一个对象，都需要先设置一系列状态值，然后通过调用 gl.drawArrays 或 gl.drawElements 运行一个着色方法对，使得你的着色器对能够在GPU上运行。
 
-着色器获取数据的4种方法： 1、属性（Attributes）和缓冲； 2、全局变量（Uniforms）； 3、纹理（Textures）；4、可变量（Varyings）；
+着色器获取数据的4种方法： 
+
+1、属性（Attributes）和缓冲； 
+
+缓冲是发送到GPU的一些二进制数据序列，通常情况下缓冲数据包括位置，法向量，纹理坐标，顶点颜色值等。 你可以存储任何数据。
+
+属性用来指明怎么从缓冲中获取所需数据并将它提供给顶点着色器。 例如你可能在缓冲中用三个32位的浮点型数据存储一个位置值。 对于一个确切的属性你需要告诉它从哪个缓冲中获取数据，获取什么类型的数据（三个32位的浮点数据）， 起始偏移值是多少，到下一个位置的字节数是多少。
+
+缓冲不是随意读取的。事实上顶点着色器运行的次数是一个指定的确切数字， 每一次运行属性会从指定的缓冲中按照指定规则依次获取下一个值。
+
+2、全局变量（Uniforms）； 
+
+全局变量在着色程序运行前赋值，在运行过程中全局有效。
+
+3、纹理（Textures）；
+
+纹理是一个数据序列，可以在着色程序运行中随意读取其中的数据。 大多数情况存放的是图像数据，但是纹理仅仅是数据序列， 你也可以随意存放除了颜色数据以外的其它数据。
+
+4、可变量（Varyings）；
+
+可变量是一种顶点着色器给片断着色器传值的方式，依照渲染的图元是点， 线还是三角形，顶点着色器中设置的可变量会在片断着色器运行中获取不同的插值。
 
 渲染：在绘制之前我们应该调整画布（canvas）的尺寸以匹配它的显示尺寸。画布就像图片一样有两个尺寸。 一个是它拥有的实际像素个数，另一个是它显示的大小。CSS决定画布显示的大小。 你应该尽可能用CSS设置所需画布大小 ，因为它比其它方式灵活的多。
 
@@ -29,8 +56,21 @@ GLSL全称是 Graphics Library Shader Language （图形库着色器语言），
 WebGL的全部内容就是创建不同的着色器，向着色器提供数据然后调用gl.drawArrays 或 gl.drawElements 让WebGL调用当前顶点着色器处理每个顶点，调用当前片断着色器渲染每个像素
 
 - WebGL兼容性检查（WebGL compatibility check）
+大部分的WebGL API在chrome 56+以上版本支持功能特性
+```js
+// 引用 https://github.com/mrdoob/three.js/blob/master/examples/jsm/capabilities/WebGL.js
 
-## WebGL Hello World
+if (WebGL.isWebGLAvailable()) {
+  // Initiate function or other initializations here
+  animate()
+}
+else {
+  const warning = WebGL.getWebGLErrorMessage()
+  document.getElementById('container').appendChild(warning)
+}
+```
+
+当然今天我们的主角并不是高深莫测的WebGL，而是经过适度封装的工具库ThreeJs，使用该库能让我们快速搭建项目，完成我们设计好的3D场景，模拟工业化生产\全景数字化仓\AR虚拟现实等
 
 
 ## Three.js 
@@ -57,7 +97,46 @@ Three.js经常会和WebGL混淆， 但也并不总是，three.js其实是使用W
 
 - Light(光源)
 
+## WebGL Hello World
+hello world demo简介
+
+### renderer create
+
+### camera create
+
+### orbitControl create
+
+### light create
+
+### Mesh create (Geometry & Material)
+
+### FontLoader apply
+
 ## 开发基础
+
+three.js中最常用的摄像机并且之前我们一直用的摄像机是透视摄像PerspectiveCamera, 它可以提供一个近大远小的3D视觉效果.
+
+第二种常见的摄像机是正交摄像机 OrthographicCamera, 和指定一个视锥不同的是, 它需要设置left, right top, bottom, near, 和far指定一个长方体, 使得视野是平行的而不是透视的.在这种投影模式下，无论物体距离相机距离远或者近，在最终渲染的图片中物体的大小都保持不变。
+
+这对于渲染2D场景或者UI元素是非常有用的。
+
+- 摄像机
+
+透视摄像PerspectiveCamera
+
+在three.js中最常用的摄像机并且之前我们一直用的摄像机是透视摄像机 PerspectiveCamera, 它可以提供一个近大远小的3D视觉效果.
+
+PerspectiveCamera通过四个属性来定义一个视锥. near定义了视锥的前端, far定义了后端, fov是视野, 通过计算正确的高度来从摄像机的位置获得指定的以near为单位的视野, 定义的是视锥的前端和后端的高度. aspect间接地定义了视锥前端和后端的宽度, 实际上视锥的宽度是通过高度乘以aspect来得到的.
+
+透视摄像机demo演示
+
+正交摄像机 OrthographicCamera
+
+第二种常见的摄像机是正交摄像机 OrthographicCamera, 和指定一个视锥不同的是, 它需要设置left, right top, bottom, near, 和far指定一个长方体, 使得视野是平行的而不是透视的.
+
+绘制2D图像的时候会用到OrthographicCamera. 你可以自己决定摄像机的视野大小. 比如说你想让canvas的一个像素匹配摄像机的一个单位, 你可以这么做
+
+纸片人视角、二次元视角、嘉然
 
 使用图元是种很常见的做法，像使用球体作为地球，或者使用大量盒子来绘制 3D 图形
 
@@ -96,7 +175,11 @@ Three.js 的核心可以说是它的场景图（scene graph）。场景图在 3D
 
 4、点光源 PointLight 从一个点朝各个方向发射出光线的一种光照效果
 
-- 摄像机
+5、聚光灯 potLight
+
+聚光灯可以看成是一个点光源被一个圆锥体限制住了光照的范围。实际上有两个圆锥，内圆锥和外圆锥。光照强度在两个锥体之间从设定的强度递减到 0（具体可以看下方 penumbra 参数）。
+
+聚光灯（SpotLight）类似方向光（DirectionalLight）一样需要一个目标点，光源的位置是圆锥的顶点，目标点处于圆锥的中轴线上。
 
 - 阴影
 

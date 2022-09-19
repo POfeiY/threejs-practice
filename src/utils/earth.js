@@ -5,9 +5,15 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass'
 import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils'
+import * as dat from 'dat.gui'
 import lineFragmentShader from '~/glsl/fragment.glsl'
 import imgData from '~/assets/earth.jpg'
 
+// create mock gui
+const gui = new dat.GUI()
+export const hideGui = () => {
+  gui.hide()
+}
 export const createEarth = (canvas) => {
   let earth
   // create scene
@@ -25,7 +31,7 @@ export const createEarth = (canvas) => {
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-  // 后期
+  // post-edition
   const composer = new EffectComposer(renderer)
   composer.addPass(new RenderPass(scene, camera))
   const glitchPass = new GlitchPass()
@@ -47,6 +53,7 @@ export const createEarth = (canvas) => {
 
   const tweens = []
 
+  // create trails path
   const setPath = (l, startPoint, endPoint, peakHeight, cycles) => {
     const pos = l.geometry.attributes.position
     const division = pos.count - 1
@@ -85,6 +92,7 @@ export const createEarth = (canvas) => {
     l.material.dashSize = 3
   }
 
+  // create trails
   const makeTrail = (index) => {
     const pts = new Array(100 * 3).fill(0)
     const g = new THREE.BufferGeometry()
@@ -268,6 +276,7 @@ export const createEarth = (canvas) => {
     scene.add(earth)
   }
 
+  // animation tweens
   for (let i = 0; i < maxImpactAmount; i++) {
     tweens.push({
       runTween: () => {
@@ -308,6 +317,22 @@ export const createEarth = (canvas) => {
     composer.setSize(window.innerWidth, window.innerHeight)
   }, false)
 
+  gui.add(uniforms.maxSize, 'value', 0.01, 0.06).step(0.001).name('land')
+  gui.add(uniforms.minSize, 'value', 0.01, 0.06).step(0.001).name('sea')
+  gui.add(uniforms.waveHeight, 'value', 0.1, 1).step(0.001).name('waveHeight')
+  gui.add(uniforms.scaling, 'value', 1, 5).step(0.01).name('range')
+  gui.addColor(params.colors, 'base').name('baseColor').onChange((val) => {
+    earth && earth.material.color.set(val)
+  })
+  gui.addColor(params.colors, 'gradInner').name('gradientInner').onChange((val) => {
+    uniforms.gradInner.value.set(val)
+  })
+  gui.addColor(params.colors, 'gradOuter').name('gradientInner').onChange((val) => {
+    uniforms.gradOuter.value.set(val)
+  })
+
+  // gui.hide()
+
   renderer.setAnimationLoop((_) => {
     TWEEN.update()
     earth.rotation.y += 0.001
@@ -315,18 +340,18 @@ export const createEarth = (canvas) => {
     // composer.render()
   })
 
-  const raycaster = new THREE.Raycaster()
-  const mouse = new THREE.Vector2()
-  window.addEventListener('dblclick', (event) => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-    raycaster.setFromCamera(mouse, camera)
-    const intersects = raycaster.intersectObjects(earth.children)
-    if (intersects.length > 0) {
-      // this.setState({
-      //   showModal: true,
-      //   modelText: tips[Math.floor(Math.random() * tips.length)],
-      // })
-    }
-  }, false)
+  // const raycaster = new THREE.Raycaster()
+  // const mouse = new THREE.Vector2()
+  // window.addEventListener('dblclick', (event) => {
+  //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+  //   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+  //   raycaster.setFromCamera(mouse, camera)
+  //   const intersects = raycaster.intersectObjects(earth.children)
+  //   if (intersects.length > 0) {
+  //     // this.setState({
+  //     //   showModal: true,
+  //     //   modelText: tips[Math.floor(Math.random() * tips.length)],
+  //     // })
+  //   }
+  // }, false)
 }

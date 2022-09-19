@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-vue': ^2.3.2
   '@vue/test-utils': ^2.0.0-rc.21
   '@vueuse/core': ^8.4.2
+  dat.gui: ^0.7.9
   eslint: ^8.15.0
   jsdom: ^19.0.0
   lil-gui: ^0.16.1
@@ -28,6 +29,7 @@ specifiers:
 
 dependencies:
   '@vueuse/core': 8.4.2_vue@3.2.33
+  dat.gui: 0.7.9
   lil-gui: 0.16.1
   rollup-plugin-glsl-loader: 1.0.13
   three: 0.140.2
@@ -1107,6 +1109,10 @@ packages:
 
   /csstype/2.6.17:
     resolution: {integrity: sha512-u1wmTI1jJGzCJzWndZo8mk4wnPTZd1eOIYTYvuEyOQGfmDl3TrabCCfKnOC86FZwW/9djqTl933UF/cS425i9A==}
+    dev: false
+
+  /dat.gui/0.7.9:
+    resolution: {integrity: sha512-sCNc1OHobc+Erc1HqiswYgHdVNpSJUlk/Hz8vzOCsER7rl+oF/4+v8GXFUyCgtXpoCX6+bnmg07DedLvBLwYKQ==}
     dev: false
 
   /data-uri-to-buffer/4.0.0:
