@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { createCamera, hideGUI, showGUI } from '~/utils/camera.js'
+import { createPerspectiveCamera, hideGUI, showGUI } from '~/utils/camera.js'
 const canvas = $ref()
 const viewLeft = $ref()
 const viewRight = $ref()
 onMounted(() => {
   showGUI()
-  createCamera(canvas, viewLeft, viewRight)
+  createPerspectiveCamera(canvas, viewLeft, viewRight)
 })
 onUnmounted(() => {
   hideGUI()

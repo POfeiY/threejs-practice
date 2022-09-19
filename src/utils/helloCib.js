@@ -5,9 +5,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 export const createHelloCib = (canvas) => {
   const objects = []
   const spread = 15
-
+  // create renderer
   const renderer = new THREE.WebGLRenderer({ canvas })
 
+  // configure camera
   const fov = 40
   const aspect = 2
   const near = 0.1
@@ -15,13 +16,15 @@ export const createHelloCib = (canvas) => {
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
   camera.position.z = 40
 
+  // create scene
   const scene = new THREE.Scene()
   scene.background = new THREE.Color(0xAAAAAA)
 
-  // create orbitControl
+  // create orbitControl for rotate camera around origin
   const controls = new OrbitControls(camera, canvas)
   controls.update()
 
+  // 常见对称方向光源*2
   {
     const color = 0xFFFFFF
     const intensity = 1
@@ -45,6 +48,7 @@ export const createHelloCib = (canvas) => {
     objects.push(obj)
   }
 
+  // create material 创建字体材质
   const createMaterial = () => {
     const material = new THREE.MeshPhongMaterial({
       side: THREE.DoubleSide,
@@ -71,7 +75,9 @@ export const createHelloCib = (canvas) => {
   }
 
   async function helloing() {
+    // loader font 装载字体
     const font = await loadFont('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json')
+    // 绘制字形体
     const geometry = new TextGeometry(
       'Hello CIB',
       {
@@ -79,21 +85,14 @@ export const createHelloCib = (canvas) => {
         size: 3.0,
         height: 0.2,
         curveSegments: 12,
-        bevelEnabled: true, // 斜切角
+        bevelEnabled: true, // 是否使用斜切角
         bevelThickness: 0.15,
         bevelSize: 0.3,
         bevelSegments: 5,
       },
     )
+    // load 挂载到场景画布中
     addGeometry(-0.5, 0, geometry)
-
-    // const mesh = new THREE.Mesh(geometry, createMaterial())
-    // geometry.computeBoundingBox()
-    // geometry.boundingBox.getCenter(mesh.position).multiplyScalar(-1)
-
-    // const parent = new THREE.Object3D()
-    // parent.add(mesh)
-    // rotateObject(0.5, 0, parent)
   }
 
   helloing()
@@ -109,6 +108,7 @@ export const createHelloCib = (canvas) => {
     return needResize
   }
 
+  // loop render 渲染动画
   const render = (time) => {
     const delta = time / 1000
 

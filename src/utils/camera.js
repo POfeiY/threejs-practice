@@ -83,6 +83,17 @@ export const createPerspectiveCamera = (canvas, viewLeft, viewRight) => {
     scene.add(mesh)
   }
 
+  {
+    const sphereRadius = 3
+    const sphereWidthDivisions = 32
+    const sphereHeightDivisions = 16
+    const sphereGeo = new THREE.SphereGeometry(sphereRadius, sphereWidthDivisions, sphereHeightDivisions)
+    const sphereMat = new THREE.MeshPhongMaterial({ color: '#CC1' })
+    const mesh = new THREE.Mesh(sphereGeo, sphereMat)
+    mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0)
+    scene.add(mesh)
+  }
+
   // create light
   {
     const color = 0xFFFFFF
@@ -237,7 +248,7 @@ export const createOrthographicCamera = (canvas, viewLeft, viewRight) => {
   {
     const cubeSize = 4
     const cubeGeo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize)
-    const cubeMat = new THREE.MeshPhongMaterial({ color: '#8AC' })
+    const cubeMat = new THREE.MeshPhongMaterial({ color: '#81C' })
     const mesh = new THREE.Mesh(cubeGeo, cubeMat)
     mesh.position.set(cubeSize + 1, cubeSize / 2, 0)
     scene.add(mesh)
@@ -248,7 +259,7 @@ export const createOrthographicCamera = (canvas, viewLeft, viewRight) => {
     const sphereWidthDivisions = 32
     const sphereHeightDivisions = 16
     const sphereGeo = new THREE.SphereGeometry(sphereRadius, sphereWidthDivisions, sphereHeightDivisions)
-    const sphereMat = new THREE.MeshPhongMaterial({ color: '#CA8' })
+    const sphereMat = new THREE.MeshPhongMaterial({ color: '#CC1' })
     const mesh = new THREE.Mesh(sphereGeo, sphereMat)
     mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0)
     scene.add(mesh)
