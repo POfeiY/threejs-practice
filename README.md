@@ -2,6 +2,13 @@
 
 ## [WebGL基础](https://webglfundamentals.org/webgl/lessons/zh_cn/webgl-fundamentals.html)
 
+# 主题文字释义
+
+“光锥之内皆是命运”
+节选自刘慈欣的《三体2-黑暗森林》中斐兹罗将军的一段：
+“光的传播沿时间轴呈锥状，物理学家们称为光锥，光锥之外的人不可能了解光锥内部发生的事件。想想现在，谁知道宇宙中有多少重大事件的信息正在以光速向我们飞来，有些可能已经飞了上亿年，但我们仍在这些事件的光锥之外。”
+“光锥之内就是命运。”
+
 # OpenGL简介
 
 介绍WebGL之前，我们先了解一下OpenGL的相关知识点。OpenGL是计算机图形学的课程，用于计算机科学、工程学、数学和科学分支，自3.1版本之后OpenGL弃用了较老的立即模式、状态变量与OpenGL函数，转而更新为需要每个应用程序提供一个顶点着色器、片段着色器（片元着色器）对可视的场景内容进行渲染，涉及到的主题有：建模、几何、变换、照明与着色、纹理映射与像素处理。自2009年 OpenGL的研讨会上引出了WebGL，基于OpenGL ES2.0的图形API，通过HTML5 canvas 元素执行js的runtime环境；引入WebGL带来的优势在于，从web开发人员的角度来看，是可交付媒体类型的自然发展，从文字过渡到图像，再到视频，再到交互式3D，集中优势体现在：
@@ -87,18 +94,6 @@ WebGL的全部内容就是创建不同的着色器，向着色器提供数据然
 
 - WebGL兼容性检查（WebGL compatibility check）
 大部分的WebGL API在chrome 56+以上版本支持功能特性
-```js
-// 引用 https://github.com/mrdoob/three.js/blob/master/examples/jsm/capabilities/WebGL.js
-
-if (WebGL.isWebGLAvailable()) {
-  // Initiate function or other initializations here
-  animate()
-}
-else {
-  const warning = WebGL.getWebGLErrorMessage()
-  document.getElementById('container').appendChild(warning)
-}
-```
 
 当然今天我们的主角并不是高深莫测的WebGL，而是经过封装的工具库Three.js，使用该库能让我们快速搭建项目，完成我们设计好的3D场景，模拟工业化生产\全景数字化仓\AR虚拟现实等
 
@@ -164,6 +159,8 @@ three.js中最常用的摄像机并且之前我们一直用的摄像机是透视
 透视摄像PerspectiveCamera
 
 在three.js中最常用的摄像机并且之前我们一直用的摄像机是透视摄像机 PerspectiveCamera, 它可以提供一个近大远小的3D视觉效果.
+****
+人眼的视野大约是向外95°、向内60°、向上60°、向下75°。
 
 PerspectiveCamera通过四个属性来定义一个视锥. near定义了视锥的前端, far定义了后端, fov是视野, 通过计算正确的高度来从摄像机的位置获得指定的以near为单位的视野, 定义的是视锥的前端和后端的高度. aspect间接地定义了视锥前端和后端的宽度, 实际上视锥的宽度是通过高度乘以aspect来得到的.
 
@@ -220,9 +217,76 @@ Three.js 的核心可以说是它的场景图（scene graph）。场景图在 3D
 
 聚光灯（SpotLight）类似方向光（DirectionalLight）一样需要一个目标点，光源的位置是圆锥的顶点，目标点处于圆锥的中轴线上。
 
-- 阴影
+- 材质
 
-- 雾
+1、basic  基础材质不受光照影响
+
+2、lambert 仅在顶点计算光照
+
+3、phong 在每个像素计算光照，支持镜面高光（shininess 镜面光泽度）
+
+既然MeshBasicMaterial、MeshLambertMaterial可以做到的，MeshPhongMaterial也可以做到，那为什么还要有这3种材质呢？原因是更复杂的材质会消耗更多的GPU功耗。在一个较慢的GPU上，比如说手机，你可能想通过使用一个不太复杂的材质来减少绘制场景所需的GPU功耗。同样，如果你不需要额外的功能，那就使用最简单的材质。如果你不需要照明和镜面高光，那么就使用 MeshBasicMaterial 。
+
+4、toon 与phong材质类似，最大的区别在于它是非平滑地着色，而是使用渐变纹理来决定如何着色。默认使用的渐变图是前70%的部分使用70%的亮度，之后的部分使用100%的亮度，当然，你可以定义你自己的渐变图。这最终会给人一种2色调的感觉，看起来就像卡通一样
+
+5、基于物理渲染（Physically Based Rendering）的材质，简称PBR。应用场景较少，简单了解即可。
+
+上述4种材质使用简单的数学来制作，看起来是3D的，但它们并不是现实世界中实际存在的东西。基于物理渲染的2种PBR材质使用更复杂的数学来接近现实世界中的实际情况。
+
+第一个是 MeshStandardMaterial。MeshPhongMaterial 和 MeshStandardMaterial 最大的区别是它们使用的参数不同。MeshPhongMaterial 有一个参数用来设置 shininess 属性。MeshStandardMaterial 有2个参数用来分别设置 roughness 和 metalness 属性。
+
+在基本层面，roughness 是 shininess 的对立面。粗糙度（roughness）高的东西，比如棒球，就不会有很强烈的反光，而不粗糙的东西，比如台球，就很有光泽。粗糙度的范围从0到1。
+
+另一个设定，metalness，说的是材质的金属度。金属与非金属的表现不同。0代表非金属，1代表金属。
+
+各种标准材质的构建速度从最快到最慢：MeshBasicMaterial ➡ MeshLambertMaterial ➡ MeshPhongMaterial ➡ MeshStandardMaterial ➡ MeshPhysicalMaterial。构建速度越慢的材质，做出的场景越逼真，但在低功率或移动设备上，你可能需要思考代码的设计，使用构建速度较快的材质。
+
+6、ShadowMaterial 用于获取阴影创建的数据
+
+7、MeshDepthMaterial 渲染每个像素的深度，其中处在摄像机负近端面的像素其深度为0，处在摄像机负远端面的像素其深度为1
+
+8、MeshNormalMaterial 会显示几何体的法线。法线是一个特定的三角形或像素所面对的方向
+
+ TODO：截图配置
+
+- 纹理
+
+纹理一般是指我们常见的在一些第三方程序中创建的图像，如Photoshop或GIMP
+
+最常用使用的纹理加载器是TextLoader，加载一个Texture类，内部使用ImageLoader来加载文件。
+
+loader.load方法的参数定义：
+url — 文件的URL或者路径，也可以为 Data URI. 从给定的URL开始加载并将完全加载的texture传递给onLoad。该方法还返回一个新的纹理对象，该纹理对象可以直接用于材质创建。 如果采用此方法，一旦相应的加载过程完成，纹理可能会在场景中出现。
+onLoad — 加载完成时将调用。回调参数为将要加载的texture.
+onProgress — 将在加载过程中进行调用。参数为XMLHttpRequest实例，实例包含total和loaded字节。
+onError — 在加载错误时被调用。
+
+但需要注意的是，并不是所有的几何体类型都支持多种材质。BoxGeometry 和 BoxGeometry 可以使用6种材料，每个面一个。ConeGeometry 和 ConeGeometry 可以使用2种材料，一种用于底部，一种用于侧面。 CylinderGeometry 和 CylinderGeometry 可以使用3种材料，分别是底部、顶部和侧面。对于其他情况，你需要建立或加载自定义几何体和（或）修改纹理坐标。
+
+在其他3D引擎中，如果你想在一个几何体上使用多个图像，使用 纹理图集（Texture Atlas） 更为常见，性能也更高。纹理图集是将多个图像放在一个单一的纹理中，然后使用几何体顶点上的纹理坐标来选择在几何体的每个三角形上使用纹理的哪些部分。
+
+## 开发基础总结
+
+以上即是Three.js库的基础知识，内容涉及面比较广，概念也比较多，需要大量的实例练习来熟悉。当然除了以上内容以外还有阴影、雾等扩展知识需要在后期处理进行配置以追求实现更逼真的场景还原。
+
+阴影：Three.js 默认使用shadow maps（阴影贴图），阴影贴图的工作方式就是具有投射阴影的光能对所有能被投射阴影的物体从光源渲染阴影
+
+雾： 在3D引擎里，雾通常是基于离摄像机的距离褪色至某种特定颜色的方式。在three.js中添加雾是通过创建 Fog 或者 FogExp2 实例并设定scene的fog 属性。
+
+## DEMO演示
+
+- 空间场景模拟
+
+类似VR看房中的空间，将摄像机放置于渲染空间的正中心，通过环绕轨道调节摄像机的视角以实现立体全景视角的模拟呈现。
+
+1、设计场景图
+
+2、使用组件
+
+3、render 渲染
+
+
+@bilibili 我的三体系列，从1看到3，肉眼可见的技术爆炸
 
 ## Features
 
