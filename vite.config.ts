@@ -62,6 +62,7 @@ export default defineConfig({
             || assetInfo.name?.includes('Default_emissive')
             || assetInfo.name?.includes('Default_metalRoughness')
             || assetInfo.name?.includes('Default_normal')
+            || assetInfo.name?.includes('DamagedHelmetBIN')
           return notNeedHashString ? 'assets/[name][extname]' : 'assets/[name]-[hash][extname]'
         },
       },

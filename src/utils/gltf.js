@@ -38,6 +38,8 @@ export const createGLTFLodaer = (canvas) => {
       image4.src = new URL('../glTF/DamagedHelmet/Default_metalRoughness.jpg', import.meta.url).href
       const image5 = new Image()
       image5.src = new URL('../glTF/DamagedHelmet/Default_normal.jpg', import.meta.url).href
+      const image6 = new Image()
+      image6.src = new URL('../glTF/DamagedHelmet/DamagedHelmetBIN.bin', import.meta.url).href
       // get model
       const loader = new GLTFLoader()
       loader.load(new URL('../glTF/DamagedHelmet/DamagedHelmet.gltf', import.meta.url).href, (gltf) => {
