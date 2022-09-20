@@ -14,10 +14,22 @@ onMounted(() => {
 
 <template>
   <div w-full h-full grid="~ cols-2 rows-2">
-    <canvas ref="direction" w-full h-full />
-    <canvas ref="point" w-full h-full />
-    <canvas ref="AmbientLight" w-full h-full />
-    <canvas ref="HemisphereLight" w-full h-full />
+    <div w-full position-relative>
+      <span class="light-title">DirectionalLight</span>
+      <canvas ref="direction" w-full h-full />
+    </div>
+    <div w-full position-relative>
+      <span class="light-title">PointLight</span>
+      <canvas ref="point" w-full h-full />
+    </div>
+    <div w-full position-relative>
+      <span class="light-title">AmbientLight</span>
+      <canvas ref="AmbientLight" w-full h-full />
+    </div>
+    <div w-full position-relative>
+      <span class="light-title">HemisphereLight</span>
+      <canvas ref="HemisphereLight" w-full h-full />
+    </div>
   </div>
 </template>>
 

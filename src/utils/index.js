@@ -10,13 +10,13 @@ const gui = new GUI()
 export const hideGUI = () => gui.hide()
 export const showGUI = () => gui.show()
 let isGUIInit = false
-export const sunSolarSystem = (canvas: HTMLCanvasElement) => {
+export const sunSolarSystem = (canvas) => {
   // create renderer
   const renderer = new THREE.WebGLRenderer({ canvas })
   // create scene
   const scene = new THREE.Scene()
   // rotating object array
-  const rotatingObjects: any[] = []
+  const rotatingObjects = []
   // create sun
   const raduis = 1
   const widthSegments = 6
@@ -89,7 +89,7 @@ export const sunSolarSystem = (canvas: HTMLCanvasElement) => {
   controls.update()
 
   // resizer
-  const resizeRendererToDisplaySize = (renderer: any) => {
+  const resizeRendererToDisplaySize = (renderer) => {
     const canvas = renderer.domElement
     const width = canvas.clientWidth
     const height = canvas.clientHeight
@@ -101,7 +101,7 @@ export const sunSolarSystem = (canvas: HTMLCanvasElement) => {
   }
 
   // render function
-  const render = (time: number) => {
+  const render = (time) => {
     time *= 0.001
     if (resizeRendererToDisplaySize(renderer)) {
       const canvas = renderer.domElement
@@ -126,8 +126,8 @@ export const sunSolarSystem = (canvas: HTMLCanvasElement) => {
 
   // create gui
   class AxisGridHelper {
-    _visible: boolean
-    grid: GridHelper
+    _visible
+    grid
     constructor(node, units = 10) {
       const axes = new THREE.AxesHelper()
       axes.material.depthTest = false
@@ -154,7 +154,7 @@ export const sunSolarSystem = (canvas: HTMLCanvasElement) => {
       this.axes.visible = v
     }
   }
-  function makeAxisGrid(node: any, label: string, units?: number) {
+  function makeAxisGrid(node, label, units) {
     const helper = new AxisGridHelper(node, units)
     gui.add(helper, 'visible').name(label)
   }
@@ -167,7 +167,7 @@ export const sunSolarSystem = (canvas: HTMLCanvasElement) => {
   makeAxisGrid(moonMesh, 'moonMesh')
 }
 
-export const PorcheRender = (canvas: HTMLCanvasElement) => {
+export const PorcheRender = (canvas) => {
   const wheels = []
 
   // create renderer

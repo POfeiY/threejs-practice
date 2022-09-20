@@ -54,8 +54,8 @@ export const createPrimitives = (canvas) => {
     return material
   }
 
-  const addSolidGeometry = (x, y, geometry) => {
-    const mesh = new THREE.Mesh(geometry, createMaterial())
+  const addSolidGeometry = (x, y, geometry, material) => {
+    const mesh = new THREE.Mesh(geometry, material || createMaterial())
     addObject(x, y, mesh)
   }
 
@@ -119,7 +119,9 @@ export const createPrimitives = (canvas) => {
     const tubularSegments = 64
     const p = 2
     const q = 3
-    addSolidGeometry(2, 0, new THREE.TorusKnotGeometry(radius, tube, tubularSegments, radialSegments, p, q))
+    addSolidGeometry(2, 0, new THREE.TorusKnotGeometry(radius, tube, tubularSegments, radialSegments, p, q), new THREE.MeshNormalMaterial({
+      side: THREE.DoubleSide,
+    }))
   }
 
   const resizeRendererToDisplaySize = (renderer) => {

@@ -5,8 +5,10 @@ const router = useRouter()
 const goToPerspectiveCamera = () => router.push('./camera')
 const goToOrthographicCamera = () => router.push('./orthographic')
 const goToPrimitives = () => router.push('./primitives')
+const goToLights = () => router.push('./lights')
 const goToSpace = () => router.push('./space')
 const goToFerrari = () => router.push('./ferrari')
+const goToGLTF = () => router.push('./gltf_loader')
 const goToStormTrooper = () => router.push('./storm')
 const goToControlsPointer = () => router.push('./controls')
 const goToEarth = () => router.push('./earth')
@@ -17,10 +19,12 @@ const goToEarth = () => router.push('./earth')
     <div title="PerspectiveCamera" class="icon-btn" i-emojione:cat-face-with-wry-smile @click.stop="goToPerspectiveCamera" />
     <div title="OrthographicCamera" class="icon-btn" i-emojione:angry-face-with-horns @click.stop="goToOrthographicCamera" />
     <div title="Primitives" class="icon-btn" i-emojione:cat-face-with-tears-of-joy @click.stop="goToPrimitives" />
+    <div title="Lights" class="icon-btn" i-emojione:camel @click.stop="goToLights" />
     <div title="Space" class="icon-btn" i-emojione:bear-face @click.stop="goToSpace" />
-    <div title="Ferrari" class="icon-btn" i-carbon:face-pending-filled @click.stop="goToFerrari" />
-    <div title="StormTrooper" class="icon-btn" i-carbon:face-cool @click.stop="goToStormTrooper" />
-    <div title="ControlsPointer" class="icon-btn" i-carbon:carbon @click.stop="goToControlsPointer" />
-    <div title="Earth" class="icon-btn" i-carbon:carbon-for-ibm-product @click.stop="goToEarth" />
+    <div title="Ferrari" class="icon-btn" i-emojione:cow-face @click.stop="goToFerrari" />
+    <div title="glTFLoader" class="icon-btn" i-emojione:see-no-evil-monkey @click.stop="goToGLTF" />
+    <div title="StormTrooper" class="icon-btn" i-emojione:gorilla @click.stop="goToStormTrooper" />
+    <div title="ControlsPointer" class="icon-btn" i-emojione:weary-cat-face @click.stop="goToControlsPointer" />
+    <div title="Earth" class="icon-btn" i-emojione:globe-showing-asia-australia @click.stop="goToEarth" />
   </nav>
 </template>
