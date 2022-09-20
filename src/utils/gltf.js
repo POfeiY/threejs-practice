@@ -40,7 +40,7 @@ export const createGLTFLodaer = (canvas) => {
       image5.src = new URL('../glTF/DamagedHelmet/Default_normal.jpg', import.meta.url).href
       // get model
       const loader = new GLTFLoader()
-      loader.load(new URL('../glTF/DamagedHelmet/DamageHelmet.gltf', import.meta.url).href, (gltf) => {
+      loader.load(new URL('../glTF/DamagedHelmet/DamagedHelmet.gltf', import.meta.url).href, (gltf) => {
         scene.add(gltf.scene)
 
         render()
