@@ -30,7 +30,7 @@ export const createStormTrooper = (canvas) => {
   const loader = new ColladaLoader()
   const image = new Image()
   image.src = new URL('../stormTrooper/Stormtrooper_D.jpg', import.meta.url).href
-  loader.load(new URL(import.meta.env.PROD ? '../stormTrooper/stormtrooper.dae' : '../stormTrooper/stormtrooper_dev.dae', import.meta.url).href, (collada) => {
+  loader.load(new URL('../stormTrooper/stormtrooper.dae', import.meta.url).href, (collada) => {
     const avatar = collada.scene
     const animations = avatar.animations
     avatar.traverse((node) => {

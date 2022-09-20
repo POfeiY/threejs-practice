@@ -51,6 +51,22 @@ export default defineConfig({
     glslLoader(),
   ],
 
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          const notNeedHashString
+            = assetInfo.name?.includes('Stormtrooper_D')
+            || assetInfo.name?.includes('Default_albedo')
+            || assetInfo.name?.includes('Default_AO')
+            || assetInfo.name?.includes('Default_emissive')
+            || assetInfo.name?.includes('Default_metalRoughness')
+            || assetInfo.name?.includes('Default_normal')
+          return notNeedHashString ? 'assets/[name][extname]' : 'assets/[name]-[hash][extname]'
+        },
+      },
+    },
+  },
   // https://github.com/vitest-dev/vitest
   test: {
     environment: 'jsdom',

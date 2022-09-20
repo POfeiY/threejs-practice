@@ -27,8 +27,18 @@ export const createGLTFLodaer = (canvas) => {
 
       render()
 
-      // model
-
+      // get texture image
+      const image1 = new Image()
+      image1.src = new URL('../glTF/DamagedHelmet/Default_albedo.jpg', import.meta.url).href
+      const image2 = new Image()
+      image2.src = new URL('../glTF/DamagedHelmet/Default_AO.jpg', import.meta.url).href
+      const image3 = new Image()
+      image3.src = new URL('../glTF/DamagedHelmet/Default_emissive.jpg', import.meta.url).href
+      const image4 = new Image()
+      image4.src = new URL('../glTF/DamagedHelmet/Default_metalRoughness.jpg', import.meta.url).href
+      const image5 = new Image()
+      image5.src = new URL('../glTF/DamagedHelmet/Default_normal.jpg', import.meta.url).href
+      // get model
       const loader = new GLTFLoader()
       loader.load(new URL('../glTF/DamagedHelmet/DamageHelmet.gltf', import.meta.url).href, (gltf) => {
         scene.add(gltf.scene)
