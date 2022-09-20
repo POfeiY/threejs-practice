@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader'
 import Stats from './stats'
-// import dae from '~/stormTrooper/stormtrooper.dae'
 export const createStormTrooper = (canvas) => {
   let mixer
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas })

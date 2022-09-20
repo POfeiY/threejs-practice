@@ -12,7 +12,7 @@
   </asset>
   <library_images>
     <image id="Stormtrooper_D" name="Stormtrooper_D">
-      <init_from>Stormtrooper_D.jpg</init_from>
+      <init_from>Stormtrooper_D.0f3a4e44.jpg</init_from>
     </image>
   </library_images>
   <library_effects>
